@@ -2,25 +2,16 @@
 
 # <img src="https://opentelemetry.io/img/logos/opentelemetry-logo-nav.png" alt="OTel logo" width="45"> OpenTelemetry.io
 
-This is the source repository for the [OpenTelemetry][] website, project
-documentation, and blog. The site is [built][contributing.md] using [Hugo][] and
-is hosted on [Netlify][].
+* goal
+  * [OpenTelemetry][] website
 
-For website analytics, see [OpenTelemetry.io Analytics][] dashboard.
+## Contributing
 
-## Get involved
-
-To learn how to contribute fixes and new content to this project, read the
-[Contributor's guide](https://opentelemetry.io/docs/contributing/), which
-includes a style guide and useful information on the review process.
-
-If you are new to OpenTelemetry and just get started with it, you are in a
-perfect position to help us get better: the website and documentation is the
-entry point for newcomers like you, so if something is unclear or something is
-missing [let us know][].
+* [here](CONTRIBUTING.md)
+* [Development Setup](https://opentelemetry.io/docs/contributing/development)
 
 ### Submit a blog post
-
+* TODO:
 For guidance on how to write and submit a blog post, see
 [Submit a blog post](https://opentelemetry.io/docs/contributing/blog/).
 
@@ -28,13 +19,6 @@ For guidance on how to write and submit a blog post, see
 
 For details on how to add a project to the OpenTelemetry Registry, see [Adding
 to the registry][].
-
-## Contributing
-
-See the [Contributing](https://opentelemetry.io/docs/contributing) page in our
-docs to learn how you can contribute and the
-[Development Setup](https://opentelemetry.io/docs/contributing/development) page
-to learn how to build the website locally.
 
 ## Found a security issue?
 

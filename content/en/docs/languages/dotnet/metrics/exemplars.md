@@ -6,13 +6,14 @@ description:
 weight: 40
 ---
 
-[Exemplars](/docs/specs/otel/metrics/sdk/#exemplar) are example data points for
-aggregated data. They provide specific context to otherwise general
-aggregations. One common use case is to gain the ability to correlate metrics to
-traces (and logs).
+* goal
+  * how to use exemplars | OpenTelemetry .NET
 
-This guide demonstrates how to use exemplars with OpenTelemetry .NET to connect
-metrics and traces, using Prometheus, Jaeger, and Grafana.
+* [Exemplars](/docs/specs/otel/metrics/sdk/#exemplar)
+  * == example data points -- for -- aggregated data
+    * provide specific context to otherwise general aggregations
+  * use case
+    * correlate metrics -- to -- traces & logs
 
 ## What are exemplars?
 
