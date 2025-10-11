@@ -5,6 +5,9 @@
 * goal
   * [OpenTelemetry][] website
 
+## Documentation
+* [here](content)
+
 ## Contributing
 
 * [here](CONTRIBUTING.md)

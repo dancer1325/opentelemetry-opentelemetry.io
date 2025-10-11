@@ -5,15 +5,26 @@ menu: { main: { weight: 10 } }
 aliases: [/docs/workshop/*]
 ---
 
-OpenTelemetry, also known as OTel, is a vendor-neutral open source
-[Observability](concepts/observability-primer/#what-is-observability) framework
-for instrumenting, generating, collecting, and exporting telemetry data such as
-[traces](concepts/signals/traces/), [metrics](concepts/signals/metrics/), and
-[logs](concepts/signals/logs/).
-
-As an industry-standard, OpenTelemetry is
-[supported by more than 90 observability vendors](/ecosystem/vendors/),
-integrated by many [libraries, services, and apps](/ecosystem/integrations/),
-and adopted by [numerous end users](/ecosystem/adopters/).
-
-![OpenTelemetry Reference Architecture](/img/otel-diagram.svg)
+* OpenTelemetry (OTel)
+  * == [Observability](concepts/observability-primer.md#what-is-observability) framework
+    * vendor-neutral
+      * [supported -- by -- > 90 observability vendors](/ecosystem/vendors/)
+    * open source
+    * ❌NOT by itself
+      * observability backend (storage)
+      * frontend (visualization)❌
+  * uses
+    * about telemetry data (_Examples:_ [traces](concepts/signals/traces/), [metrics](concepts/signals/metrics/), [logs](concepts/signals/logs/)),
+      * instrumenting,
+      * generating,
+      * collecting,
+      * exporting
+  * == CNCF incubating project
+  * == OpenTracing + OpenCensus projects
+  * integrated -- by -- MANY [libraries, services, and apps](/ecosystem/integrations/)
+  * adopted -- by -- [numerous end users](/ecosystem/adopters/)
+  * supports instrumentation
+    * code-based
+    * zero-code
+  * architecture
+    ![OpenTelemetry Reference Architecture](/opentelemetry-opentelemetry.io/static/img/otel-diagram.svg)

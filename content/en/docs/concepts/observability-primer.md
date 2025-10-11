@@ -7,22 +7,20 @@ cSpell:ignore: webshop
 
 ## What is Observability?
 
-Observability lets you understand a system from the outside by letting you ask
-questions about that system without knowing its inner workings. Furthermore, it
-allows you to easily troubleshoot and handle novel problems, that is, "unknown
-unknowns”. It also helps you answer the question "Why is this happening?"
+* Observability
+  * lets you
+    * understand a system -- from the -- outside
+    * troubleshoot & handle novel problems
 
-To ask those questions about your system, your application must be properly
-instrumented. That is, the application code must emit
-[signals](/docs/concepts/signals/) such as
-[traces](/docs/concepts/signals/traces/),
-[metrics](/docs/concepts/signals/metrics/), and
-[logs](/docs/concepts/signals/logs/). An application is properly instrumented
-when developers don't need to add more instrumentation to troubleshoot an issue,
-because they have all of the information they need.
+* requirements
+  * application must be properly instrumented
+    * == application code MUST emit [signals](signals/)
+      * _Examples:_ [traces](/docs/concepts/signals/traces/), [metrics](/docs/concepts/signals/metrics/), [logs](/docs/concepts/signals/logs/)
+    * properly instrumented
+      * == NOT need to add MORE instrumentation -- to -- troubleshoot an issue
 
-[OpenTelemetry](/docs/what-is-opentelemetry/) is the mechanism by which
-application code is instrumented to help make a system observable.
+* [OpenTelemetry](/docs/what-is-opentelemetry/)
+  * mechanism / application code is instrumented -- to make a -- system observable
 
 ## Reliability and metrics
 

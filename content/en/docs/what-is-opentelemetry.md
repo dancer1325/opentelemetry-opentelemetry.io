@@ -6,33 +6,14 @@ weight: 150
 cSpell:ignore: youtube
 ---
 
-OpenTelemetry is:
-
-- An **[observability] framework and toolkit** designed to facilitate the
-  - [Generation][instr]
-  - Export
-  - [Collection](../concepts/components/#collector)
-
-  of [telemetry data][] such as [traces], [metrics], and [logs].
-
-- **Open source**, as well as **vendor- and tool-agnostic**, meaning that it can
-  be used with a broad variety of observability backends, including open source
-  tools like [Jaeger] and [Prometheus], as well as commercial offerings.
-  OpenTelemetry is **not** an observability backend itself.
-
-A major goal of OpenTelemetry is to enable easy instrumentation of your
-applications and systems, regardless of the programming language,
-infrastructure, and runtime environments used.
-
-The backend (storage) and the frontend (visualization) of telemetry data are
-intentionally left to other tools.
-
-<div class="td-max-width-on-larger-screens">
-{{< youtube iEEIabOha8U >}}
-</div>
-
-For more videos in this series and additional resources, see
-[What next?](#what-next)
+* OpenTelemetry
+  * := **[observability] framework (APIs + SDKs) & toolkit**
+    * 's goal
+      * facilitate about [telemetry data][] (_Examples:= [traces], [metrics], and [logs])
+        - [Generation][instr]
+        - Export
+        - [Collection](../concepts/components/#collector)
+  * [Youtube](https://www.youtube.com/watch?v=iEEIabOha8U)
 
 ## What is observability?
 

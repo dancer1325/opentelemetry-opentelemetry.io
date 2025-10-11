@@ -6,21 +6,18 @@ cascade:
 weight: 180
 ---
 
-Welcome to the [OpenTelemetry Demo](/ecosystem/demo/) documentation, which
-covers how to install and run the demo, and some scenarios you can use to view
-OpenTelemetry in action.
+* [OpenTelemetry Demo](/ecosystem/demo/) documentation
+  * goal
+    * how to install and run the demo
+    * view OpenTelemetry in action
 
 ## Running the Demo
 
-Want to deploy the demo and see it in action? Start here.
-
-- [Docker](docker-deployment/)
-- [Kubernetes](kubernetes-deployment/)
+- [Docker](docker-deployment)
+- [Kubernetes](kubernetes-deployment)
 
 ## Language Feature Reference
 
-Want to understand how a particular language's instrumentation works? Start
-here.
 
 | Language   | Automatic Instrumentation                          | Instrumentation Libraries                                                                    | Manual Instrumentation                                                                       |
 | ---------- | -------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |

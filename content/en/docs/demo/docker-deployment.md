@@ -14,63 +14,40 @@ cSpell:ignore: otlphttp spanmetrics tracetest tracetesting
 - Make (optional)
 - 6 GB of RAM for the application
 
-## Get and run the demo
+## how to run the demo?
 
-1.  Clone the Demo repository:
+* `git clone https://github.com/dancer1325/opentelemetry-demo`
+* `cd opentelemetry-demo/`
+* ways to start the demo
+  * `make start`
+  * `docker compose up --force-recreate --remove-orphans --detach`
+* enable API observability-driven testing
+  * OPTIONAL
+  * ways
+    * `make run-tracetesting`
+    * `docker compose -f docker-compose-tests.yml run traceBasedTests`
 
-    ```shell
-    git clone https://github.com/open-telemetry/opentelemetry-demo.git
-    ```
-
-2.  Change to the demo folder:
-
-    ```shell
-    cd opentelemetry-demo/
-    ```
-
-3.  Start the demo[^1]:
-
-    {{< tabpane text=true >}} {{% tab Make %}}
-
-```shell
-make start
-```
-
-    {{% /tab %}} {{% tab Docker %}}
-
-```shell
-docker compose up --force-recreate --remove-orphans --detach
-```
-
-    {{% /tab %}} {{< /tabpane >}}
-
-4.  (Optional) Enable API observability-driven testing[^1]:
-
-    {{< tabpane text=true >}} {{% tab Make %}}
-
-```shell
-make run-tracetesting
-```
-
-    {{% /tab %}} {{% tab Docker %}}
-
-```shell
-docker compose -f docker-compose-tests.yml run traceBasedTests
-```
-
-    {{% /tab %}} {{< /tabpane >}}
-
-## Verify the web store and Telemetry
-
-Once the images are built and containers are started you can access:
-
-- Web store: <http://localhost:8080/>
-- Grafana: <http://localhost:8080/grafana/>
-- Load Generator UI: <http://localhost:8080/loadgen/>
-- Jaeger UI: <http://localhost:8080/jaeger/ui/>
-- Tracetest UI: <http://localhost:11633/>, only when using
-  `make run-tracetesting`
-- Flagd configurator UI: <http://localhost:8080/feature>
+* check
+  - Web store
+    - http://localhost:8080/
+      - Problems:
+        - Problem1: "{"message":"Cannot GET /","error":"Not Found","statusCode":404}"
+          - Solution: TODO:
+  - Grafana
+    - http://localhost:8080/grafana/
+      - Problems:
+        - Problem1: "{"message":"Cannot GET /","error":"Not Found","statusCode":404}"
+          - Solution: TODO:
+  - Load Generator UI
+    - http://localhost:8080/loadgen/
+  - Jaeger UI
+    - http://localhost:8080/jaeger/ui/
+  - Tracetest UI
+    - requirements
+      - you run `make run-tracetesting`
+    - http://localhost:11633/
+  - Flagd configurator UI
+    - http://localhost:8080/feature>
 
 ## Changing the demo's primary port number
 
@@ -100,35 +77,28 @@ Likely you want to use the web store as a demo application for an observability
 backend you already have (e.g., an existing instance of Jaeger, Zipkin, or one
 of the [vendors of your choice](/ecosystem/vendors/)).
 
-OpenTelemetry Collector can be used to export telemetry data to multiple
-backends. By default, the collector in the demo application will merge the
-configuration from two files:
+* OpenTelemetry Collector
+  * uses
+    * export telemetry data -- to -- MULTIPLE backends
+      * steps
+        * | [src/otel-collector/otelcol-config-extras.yml](https://github.com/open-telemetry/opentelemetry-demo/blob/main/src/otel-collector/otelcol-config-extras.yml)
 
-- `otelcol-config.yml`
-- `otelcol-config-extras.yml`
+          ```yaml
+            exporters:
+              # add a NEW exporter
+              otlphttp/example:
+                endpoint: <your-endpoint-url>
 
-To add your backend, open the file
-[src/otel-collector/otelcol-config-extras.yml](https://github.com/open-telemetry/opentelemetry-demo/blob/main/src/otel-collector/otelcol-config-extras.yml)
-with an editor.
+            # override the exporters
+            service:
+              pipelines:
+              traces:
+              exporters: [spanmetrics, otlphttp/example]
+          ```
 
-- Start by adding a new exporter. For example, if your backend supports OTLP
-  over HTTP, add the following:
-
-  ```yaml
-  exporters:
-    otlphttp/example:
-      endpoint: <your-endpoint-url>
-  ```
-
-- Then override the `exporters` for telemetry pipelines that you want to use for
-  your backend.
-
-  ```yaml
-  service:
-    pipelines:
-      traces:
-        exporters: [spanmetrics, otlphttp/example]
-  ```
+  * by default, configuration files
+    - `otelcol-config.yml`
+    - `otelcol-config-extras.yml`
 
 {{% alert title="Note" %}} When merging YAML values with the Collector, objects
 are merged and arrays are replaced. The `spanmetrics` exporter must be included
