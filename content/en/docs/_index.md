@@ -22,7 +22,7 @@ aliases: [/docs/workshop/*]
   * == CNCF incubating project
   * == OpenTracing + OpenCensus projects
   * integrated -- by -- MANY [libraries, services, and apps](/ecosystem/integrations/)
-  * adopted -- by -- [numerous end users](/ecosystem/adopters/)
+  * adopted -- by -- [numerous end users](../ecosystem/adopters)
   * supports instrumentation
     * code-based
     * zero-code

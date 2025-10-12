@@ -19,26 +19,19 @@ cSpell:ignore: youtube
 
 * [Observability]
 
-To make a system observable, it must be [instrumented][instr]
-That is, the code must emit [traces], [metrics], or [logs]
-
 ## Why OpenTelemetry?
 
-With the rise of cloud computing, microservices architectures, and increasingly
-complex business requirements, the need for software and infrastructure
-[observability] is greater than ever.
+* rise of
+  * cloud computing,
+  * microservices architectures,
+  * complex business requirements
 
-OpenTelemetry satisfies the need for observability while following two key
-principles:
+* MAIN principles
+  1. You own the data that you generate
+     1. == NO vendor lock-in
+  2. 1! set of APIs and conventions
 
-1. You own the data that you generate. There's no vendor lock-in.
-2. You only have to learn a single set of APIs and conventions.
-
-Both principles combined grant teams and organizations the flexibility they need
-in today's modern computing world.
-
-If you want to learn more, take a look at OpenTelemetry's
-[mission, vision, and values](/community/mission/).
+* [goal](/community/mission/)
 
 ## Main OpenTelemetry components
 

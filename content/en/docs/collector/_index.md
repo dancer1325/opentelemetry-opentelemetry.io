@@ -48,7 +48,7 @@ weight: 270
   * Collector
     * service -> collector -> backend
     * use cases
-      * production services
+      * production services / high traffic
         * Reason:🧠offload the service
           * collector can handle
             * retries,

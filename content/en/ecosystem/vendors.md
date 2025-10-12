@@ -17,7 +17,7 @@ Open Source (OSS) refers to a vendor who has an observability product that is
 products that are closed source, such as a SaaS offering that hosts an open
 source product for their customers.
 
-{{% ecosystem/vendor-table %}}
+* [vendors list](/opentelemetry-opentelemetry.io/data/ecosystem/vendors.yaml)
 
 ## Adding your organization {#how-to-add}
 
@@ -46,5 +46,3 @@ OpenTelemetry, see [Integrations](/ecosystem/integrations/).
 
 {{% include keep-up-to-date.md vendor %}}
 
-[vendors list]:
-  https://github.com/open-telemetry/opentelemetry.io/tree/main/data/ecosystem/vendors.yaml

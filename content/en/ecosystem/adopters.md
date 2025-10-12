@@ -17,9 +17,7 @@ love to add you to the official adopters list. You can either
 [submit a PR](#how-to-add) or
 [fill out this form](https://forms.gle/K3pKmQdTc2eevLJv9).
 
-{{% /alert %}}
-
-{{% ecosystem/adopters-table %}}
+* [adoper list](/opentelemetry-opentelemetry.io/data/ecosystem/adopters.yaml)
 
 ## Adding your organization as an adopter {#how-to-add}
 

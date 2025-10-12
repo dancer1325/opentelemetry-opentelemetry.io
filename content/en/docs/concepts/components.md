@@ -5,22 +5,18 @@ aliases: [data-collection]
 weight: 20
 ---
 
-OpenTelemetry is currently made up of several main components:
-
-- [Specification](#specification)
-- [Collector](#collector)
-- [Language-specific API \& SDK implementations](#language-specific-api--sdk-implementations)
-  - [Instrumentation Libraries](#instrumentation-libraries)
-  - [Exporters](#exporters)
-  - [Zero-Code Instrumentation](#zero-code-instrumentation)
-  - [Resource Detectors](#resource-detectors)
-  - [Cross Service Propagators](#cross-service-propagators)
-  - [Samplers](#samplers)
-- [Kubernetes operator](#kubernetes-operator)
-- [Function as a Service assets](#function-as-a-service-assets)
-
-OpenTelemetry lets you replace the need for vendor-specific SDKs and tools for
-generating and exporting telemetry data.
+* OpenTelemetry's main components
+  - [Specification](#specification)
+  - [Collector](#collector)
+  - [Language-specific API \& SDK implementations](#language-specific-api--sdk-implementations)
+    - [Instrumentation Libraries](#instrumentation-libraries)
+    - [Exporters](#exporters)
+    - [Zero-Code Instrumentation](#zero-code-instrumentation)
+    - [Resource Detectors](#resource-detectors)
+    - [Cross Service Propagators](#cross-service-propagators)
+    - [Samplers](#samplers)
+  - [Kubernetes operator](#kubernetes-operator)
+  - [Function as a Service assets](#function-as-a-service-assets)
 
 ## Specification
 
@@ -50,7 +46,7 @@ preferred backend. These SDKs also let you incorporate instrumentation libraries
 for common libraries and frameworks that you can use to connect to manual
 instrumentation in your application.
 
-For more information, see [Instrumenting](/docs/concepts/instrumentation/).
+* see [Instrumenting](/docs/concepts/instrumentation/)
 
 ### Instrumentation libraries
 

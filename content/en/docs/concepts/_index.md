@@ -6,5 +6,6 @@ aliases: [concepts/overview]
 weight: 170
 ---
 
-This section covers data sources and key components of the OpenTelemetry
-project, which can help you understand how OpenTelemetry works.
+* goal
+  * data sources
+  * OpenTelemetry's key components

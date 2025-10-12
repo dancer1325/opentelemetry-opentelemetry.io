@@ -7,16 +7,17 @@ type: docs
 body_class: td-no-left-sidebar
 ---
 
-OpenTelemetry is made up of [several components](/docs/concepts/components/),
-some language-specific and others language-agnostic. When looking for a
-[status](/docs/specs/otel/versioning-and-stability/), make sure to look for the
-status from the right component page. For example, the status of a signal in the
-specification may not be the same as the signal status in a particular language
-SDK.
+* OpenTelemetry
+  * == [MULTIPLE components](docs/concepts/components)
+    * types
+      * language-specific
+      * language-agnostic
+      * When looking for a
+  * [status](docs/specs/status)
 
 ## Language APIs & SDKs
 
-For the development status, or maturity level, of a
+* TODO: For the development status, or maturity level, of a
 [language API or SDK](/docs/languages/), see the following table:
 
 {{% telemetry-support-table " " %}}
@@ -26,9 +27,10 @@ For more details on the specification compliance per implementation, see the
 
 ## Collector
 
-The collector status is: [mixed](/docs/specs/otel/document-status/#mixed), since
-core collector components currently have mixed
-[stability levels](https://github.com/open-telemetry/opentelemetry-collector#stability-levels).
+* collector status
+  * [mixed](/docs/specs/otel/document-status/#mixed), since
+  core collector components currently have mixed
+  [stability levels](https://github.com/open-telemetry/opentelemetry-collector#stability-levels).
 
 **Collector components** differ in their maturity levels. Each component has its
 stability documented in its `README.md`. You can find a list of all available
