@@ -40,13 +40,7 @@ For more information, see the [specifications](/docs/specs/).
 
 ## Collector
 
-The OpenTelemetry Collector is a vendor-agnostic proxy that can receive,
-process, and export telemetry data. It supports receiving telemetry data in
-multiple formats (for example, OTLP, Jaeger, Prometheus, as well as many
-commercial/proprietary tools) and sending data to one or more backends. It also
-supports processing and filtering telemetry data before it gets exported.
-
-For more information, see [Collector](/docs/collector/).
+* [Collector](/docs/collector/)
 
 ## Language-specific API & SDK implementations
 

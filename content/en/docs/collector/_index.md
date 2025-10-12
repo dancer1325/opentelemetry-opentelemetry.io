@@ -12,6 +12,7 @@ weight: 270
 ## Introduction
 
 * OpenTelemetry Collector
+  * == 💡proxy💡
   * provides
     * 💡implementation, about how to receive, process and export telemetry data💡
       * vendor-agnostic

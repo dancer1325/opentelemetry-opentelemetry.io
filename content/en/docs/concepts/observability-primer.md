@@ -13,14 +13,14 @@ cSpell:ignore: webshop
     * troubleshoot & handle novel problems
 
 * requirements
-  * application must be properly instrumented
+  * 👀application must be properly instrumented👀
     * == application code MUST emit [signals](signals/)
       * _Examples:_ [traces](/docs/concepts/signals/traces/), [metrics](/docs/concepts/signals/metrics/), [logs](/docs/concepts/signals/logs/)
     * properly instrumented
       * == NOT need to add MORE instrumentation -- to -- troubleshoot an issue
 
 * [OpenTelemetry](/docs/what-is-opentelemetry/)
-  * mechanism / application code is instrumented -- to make a -- system observable
+  * 💡mechanism / application code is instrumented -- to make a -- system observable💡
 
 ## Reliability and metrics
 

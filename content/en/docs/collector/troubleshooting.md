@@ -229,17 +229,19 @@ circumstances.
 
 #### zPages
 
-The
-[zPages extension](https://github.com/open-telemetry/opentelemetry-collector/tree/main/extension/zpagesextension/README.md),
-which is exposed locally on port `55679`, can be used to inspect live data from
-the Collector's receivers and exporters.
-
-The TraceZ page, exposed at `/debug/tracez`, is useful for debugging trace
-operations, such as:
-
-- Latency issues. Find the slow parts of an application.
-- Deadlocks and instrumentation problems. Identify running spans that don't end.
-- Errors. Determine what types of errors are occurring and where they happen.
+* [zPages extension](https://github.com/open-telemetry/opentelemetry-collector/tree/main/extension/zpagesextension/README.md)
+  * exposed locally | port `55679`
+  * uses
+    * inspect Collector's receivers & exporters' live data
+  * `/debug/tracez`
+    * TraceZ page
+    * uses
+      * debugging trace operations
+        - Latency issues
+        - Deadlocks & instrumentation problems
+        - Errors
+          - types of errors
+          - where they happen
 
 Note that `zpages` might contain error logs that the Collector does not emit
 itself.

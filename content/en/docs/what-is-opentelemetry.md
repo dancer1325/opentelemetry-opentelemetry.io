@@ -19,9 +19,8 @@ cSpell:ignore: youtube
 
 * [Observability]
 
-To make a system observable, it must be [instrumented][instr]. That is, the code
-must emit [traces], [metrics], or [logs]. The instrumented data must then be
-sent to an observability backend.
+To make a system observable, it must be [instrumented][instr]
+That is, the code must emit [traces], [metrics], or [logs]
 
 ## Why OpenTelemetry?
 

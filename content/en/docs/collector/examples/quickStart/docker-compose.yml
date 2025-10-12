@@ -1,0 +1,50 @@
+services:
+  # Jaeger
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    container_name: jaeger
+    ports:
+      - "16686:16686"  # UI
+      - "14250:14250"  # gRPC (solo Jaeger)
+      - "14268:14268"  # HTTP (solo Jaeger)
+    environment:
+      - COLLECTOR_OTLP_ENABLED=true
+
+  # Prometheus
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+
+  # Zipkin
+  zipkin:
+    image: openzipkin/zipkin:latest
+    container_name: zipkin
+    ports:
+      - "9411:9411"
+
+  # OpenTelemetry Collector
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib
+    container_name: otel-collector
+    volumes:
+      - ./otel-collector-config.yaml:/etc/otelcol-contrib/config.yaml
+    ports:
+      - "4317:4317"     # OTLP gRPC
+      - "4318:4318"     # OTLP HTTP
+      - "14251:14250"   # Jaeger gRPC (puerto diferente)
+      - "14269:14268"   # Jaeger HTTP (puerto diferente)
+      - "6831:6831/udp" # Jaeger UDP
+      - "6832:6832/udp" # Jaeger UDP
+      - "9412:9411"     # Zipkin (puerto diferente)
+      - "8888:8888"     # Prometheus metrics
+      - "55679:55679"   # ZPages
+    depends_on:
+      - jaeger
+      - prometheus
+      - zipkin

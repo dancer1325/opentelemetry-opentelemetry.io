@@ -13,6 +13,8 @@ cSpell:ignore: docker dokey gobin okey telemetrygen
     * set up & run
     * send telemetry & processed it -- by the -- Collector
 
+![](img/quickStart.png)
+
 ## Prerequisites
 
 - [Docker](https://www.docker.com/)
@@ -48,23 +50,32 @@ cSpell:ignore: docker dokey gobin okey telemetrygen
         #   allows searching easier later
      ```
 
-* generate sample traces
+* generate sample
+  * traces
 
-   ```sh
-   $GOBIN/telemetrygen traces --otlp-insecure --traces 3
-   ```
-  * check that traces were generated
+     ```sh
+     $GOBIN/telemetrygen traces --otlp-insecure --traces 3
+     ```
+    * check that traces were generated
 
-   ```text
-   2024-01-16T14:33:15.692-0500  INFO  traces/worker.go:99  traces generated  {"worker": 0, "traces": 3}
-   2024-01-16T14:33:15.692-0500  INFO  traces/traces.go:58  stop the batch span processor
-   ```
-  * if you want to filter by relevant output
+     ```text
+     2024-01-16T14:33:15.692-0500  INFO  traces/worker.go:99  traces generated  {"worker": 0, "traces": 3}
+     2024-01-16T14:33:15.692-0500  INFO  traces/traces.go:58  stop the batch span processor
+     ```
+    * if you want to filter by relevant output
 
-   ```sh
-   $GOBIN/telemetrygen traces --otlp-insecure \
-     --traces 3 2>&1 | grep -E 'start|traces|stop'
-   ```
+     ```sh
+     $GOBIN/telemetrygen traces --otlp-insecure \
+       --traces 3 2>&1 | grep -E 'start|traces|stop'
+     ```
+  * logs
+    ```sh
+    $GOBIN/telemetrygen logs --otlp-insecure --duration 5s
+     ```
+  * metrics
+    ```sh
+    $GOBIN/telemetrygen metrics --otlp-insecure --duration 5s
+     ```
 
 * | terminal window / run the Collector container,
   * look for trace ingest activity -- `Span #0`, `Span #1`, ... --
@@ -93,8 +104,10 @@ cSpell:ignore: docker dokey gobin okey telemetrygen
          Status message :
      ...
      ```
-* http://localhost:55679/debug/tracez
-  * select 1 samples
+* ZPages extension
+  * http://localhost:55679/debug/pipelinez
+  * http://localhost:55679/debug/tracez
+    * select 1 samples
 
 [gobin]: https://pkg.go.dev/cmd/go#hdr-Environment_variables
 [logs]: /docs/concepts/signals/logs/
