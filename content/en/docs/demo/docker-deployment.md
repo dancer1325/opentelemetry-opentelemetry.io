@@ -32,11 +32,12 @@ cSpell:ignore: otlphttp spanmetrics tracetest tracetesting
     - http://localhost:8080/
       - Problems:
         - Problem1: "{"message":"Cannot GET /","error":"Not Found","statusCode":404}"
-          - Solution: TODO:
+          - Solution: kill existing process | 8080
   - Grafana
     - http://localhost:8080/grafana/
       - Problems:
-        - Problem1: "{"message":"Cannot GET /","error":"Not Found","statusCode":404}"
+        - Problem1: "no healthy upstream - tls: failed to verify certificate: x509"
+          - Attempt1: comment `"GF_INSTALL_PLUGINS=grafana-opensearch-datasource"`
           - Solution: TODO:
   - Load Generator UI
     - http://localhost:8080/loadgen/
@@ -51,31 +52,25 @@ cSpell:ignore: otlphttp spanmetrics tracetest tracetesting
 
 ## Changing the demo's primary port number
 
-By default, the demo application will start a proxy for all browser traffic
-bound to port 8080. To change the port number, set the `ENVOY_PORT` environment
-variable before starting the demo.
+* demo application
+  * 👀start a proxy / ALL browser traffic👀
+    * by default, 8080
+    * if you want to change the port number -> BEFORE, set `ENVOY_PORT` environment variable
+      * run -- via -- make
 
-- For example, to use port 8081[^1]:
+        ```shell
+        ENVOY_PORT=8081 make start
+        ```
+      * run -- via -- docker compose
 
-  {{< tabpane text=true >}} {{% tab Make %}}
-
-```shell
-ENVOY_PORT=8081 make start
-```
-
-    {{% /tab %}} {{% tab Docker %}}
-
-```shell
-ENVOY_PORT=8081 docker compose up --force-recreate --remove-orphans --detach
-```
-
-    {{% /tab %}} {{< /tabpane >}}
+        ```shell
+        ENVOY_PORT=8081 docker compose up --force-recreate --remove-orphans --detach
+        ```
 
 ## Bring your own backend
 
-Likely you want to use the web store as a demo application for an observability
-backend you already have (e.g., an existing instance of Jaeger, Zipkin, or one
-of the [vendors of your choice](/ecosystem/vendors/)).
+* goal
+  * web store -- as a -- demo application for an observability backend
 
 * OpenTelemetry Collector
   * uses
@@ -100,6 +95,7 @@ of the [vendors of your choice](/ecosystem/vendors/)).
     - `otelcol-config.yml`
     - `otelcol-config-extras.yml`
 
+* TODO:
 {{% alert title="Note" %}} When merging YAML values with the Collector, objects
 are merged and arrays are replaced. The `spanmetrics` exporter must be included
 in the array of exporters for the `traces` pipeline if overridden. Not including

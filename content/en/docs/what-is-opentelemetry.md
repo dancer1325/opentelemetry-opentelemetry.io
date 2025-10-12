@@ -17,10 +17,7 @@ cSpell:ignore: youtube
 
 ## What is observability?
 
-[Observability] is the ability to understand the internal state of a system by
-examining its outputs. In the context of software, this means being able to
-understand the internal state of a system by examining its telemetry data, which
-includes traces, metrics, and logs.
+* [Observability]
 
 To make a system observable, it must be [instrumented][instr]. That is, the code
 must emit [traces], [metrics], or [logs]. The instrumented data must then be

@@ -4,147 +4,129 @@ weight: 28
 cSpell:ignore: fanoutconsumer probabilisticsampler zpages
 ---
 
-The OpenTelemetry Collector is an executable file that can receive telemetry,
-process it, and export it to multiple targets, such as observability backends.
-
-The Collector supports several popular open source protocols for receiving and
-sending telemetry data, and it offers an extensible architecture for adding more
-protocols.
-
-Data receiving, processing, and exporting are done using
-[pipelines](#pipelines). You can configure the Collector to have one or more
-pipelines.
-
-Each pipeline includes the following:
-
-- A set of [receivers](#receivers) that collect the data.
-- A series of optional [processors](#processors) that get the data from
-  receivers and process it.
-- A set of [exporters](#exporters) which get the data from processors and send
-  it outside the Collector.
-
-The same receiver can be included in multiple pipelines and multiple pipelines
-can include the same exporter.
+* OpenTelemetry Collector
+  * == 💡executable file💡 /
+    * receive telemetry,
+      * supports MULTIPLE popular open source protocols
+    * process telemetry,
+    * export telemetry -- to -- MULTIPLE targets (_Example:_ observability backends)
+      * supports MULTIPLE popular open source protocols
+  * extensible architecture
+    * == add MORE protocols
+  * 's [pipelines](#pipelines)
 
 ## Pipelines
 
-A pipeline defines a path that data follows in the Collector: from reception, to
-processing (or modification), and finally to export.
+* responsible for
+  * receive data
+  * process data
+  * export data
+* MULTIPLE can be configured
+* ==
+  * [receiverS](#receivers)
+    * collect the data
+    * can be used | MULTIPLE pipelines
+  * [processorS](#processors)
+    * OPTIONAL
+    * get ALL receiverS' data & process it
+      * ALL processorS are sequential (!= parallel)
+    * LAST processor send data -- , via `fanoutconsumer`, to -- MULTIPLE exporters
+  * [exporterS](#exporters)
+    * EACH one get the 👀LAST processor' copy of data👀
+    * send it -- outside the -- Collector
+    * can be used | MULTIPLE pipelines
+* uses |
+  * telemetry data types (traces, metrics, and logs)
+    * ->
+      * configure the pipeline
+      * ⚠️receivers, processors, and exporters must support the telemetry data type⚠️
+        * OTHERWISE, `pipeline.ErrSignalNotSupported` exception
 
-Pipelines can operate on three telemetry data types: traces, metrics, and logs.
-The data type is a property of the pipeline defined by its configuration.
-Receivers, processors, and exporters used in a pipeline must support the
-particular data type, otherwise the `pipeline.ErrSignalNotSupported` exception
-is reported when the configuration loads.
+* _Example:_
 
-The following diagram represents a typical pipeline:
+  ```mermaid
+  ---
+  title: Pipeline
+  ---
+  flowchart LR
+    R1(Receiver 1) --> P1[Processor 1]
+    R2(Receiver 2) --> P1
+    RM(...) ~~~ P1
+    RN(Receiver N) --> P1
+    P1 --> P2[Processor 2]
+    P2 --> PM[...]
+    PM --> PN[Processor N]
+    PN --> FO((fan-out))
+    FO --> E1[[Exporter 1]]
+    FO --> E2[[Exporter 2]]
+    FO ~~~ EM[[...]]
+    FO --> EN[[Exporter N]]
+  ```
 
-```mermaid
----
-title: Pipeline
----
-flowchart LR
-  R1(Receiver 1) --> P1[Processor 1]
-  R2(Receiver 2) --> P1
-  RM(...) ~~~ P1
-  RN(Receiver N) --> P1
-  P1 --> P2[Processor 2]
-  P2 --> PM[...]
-  PM --> PN[Processor N]
-  PN --> FO((fan-out))
-  FO --> E1[[Exporter 1]]
-  FO --> E2[[Exporter 2]]
-  FO ~~~ EM[[...]]
-  FO --> EN[[Exporter N]]
-```
+* constructed | Collector startup,
+  * -- based on -- pipeline definition
+    * _Example:_ pipeline configuration
 
-Pipelines can have one or more receivers. Data from all receivers is pushed to
-the first processor, which processes the data and then pushes it to the next
-processor. A processor might also drop the data if it's sampling or filtering.
-This continues until the last processor in the pipeline pushes the data to the
-exporters. Each exporter gets a copy of each data element. The last processor
-uses a `fanoutconsumer` to send the data to multiple exporters.
-
-The pipeline is constructed during Collector startup based on pipeline
-definition in the configuration.
-
-A pipeline configuration typically looks like this:
-
-```yaml
-service:
-  pipelines: # section that can contain multiple subsections, one per pipeline
-    traces: # type of the pipeline
-      receivers: [otlp, zipkin]
-      processors: [memory_limiter, batch]
-      exporters: [otlp, zipkin]
-```
-
-The previous example defines a pipeline for the traces type of telemetry data,
-with two receivers, two processors, and two exporters.
+      ```yaml
+      service:
+        pipelines: # == [pipeline]  == list of pipelineS
+          traces: # telemetry data type -> type of the pipeline
+            receivers: [otlp, zipkin]
+            processors: [memory_limiter, batch]
+            exporters: [otlp, zipkin]
+      ```
 
 ### Receivers
 
-Receivers typically listen on a network port and receive telemetry data. They
-can also actively obtain data, like scrapers. Usually one receiver is configured
-to send received data to one pipeline. However, it is also possible to configure
-the same receiver to send the same received data to multiple pipelines. This can
-be done by listing the same receiver in the `receivers` key of several
-pipelines:
+* Receivers
+  * listen | network port
+  * can
+    * receive telemetry data
+    * actively obtain data (==scrapers)
+  * 1 receiver can send the SAME received data -- to -- MULTIPLE pipelines
+    * -> 👀create 1! receiver instance👀 | runtime / sends the data -- to a -- fan-out
+      consumer
+  * _Example:_
 
-```yaml
-receivers:
-  otlp:
-    protocols:
-      grpc:
-        endpoint: localhost:4317
+      ```yaml
+      receivers:
+      otlp:
+          protocols:
+          grpc:
+              endpoint: localhost:4317
 
-service:
-  pipelines:
-    traces: # a pipeline of “traces” type
-      receivers: [otlp]
-      processors: [memory_limiter, batch]
-      exporters: [otlp]
-    traces/2: # another pipeline of “traces” type
-      receivers: [otlp]
-      processors: [transform]
-      exporters: [otlp]
-```
+      service:
+      pipelines:
+          traces: # a pipeline of “traces” type
+          receivers: [otlp]
+          processors: [memory_limiter, batch]
+          exporters: [otlp]
+          traces/2: # another pipeline of “traces” type
+          receivers: [otlp]
+          processors: [transform]
+          exporters: [otlp]
+      ```
 
-In the above example, `otlp` receiver will send the same data to pipeline
-`traces` and to pipeline `traces/2`.
+      ```mermaid
+      flowchart LR
+      R1("`#quot;opentelemetry-collector#quot; Receiver`") --> FO((fan-out))
+      FO -->|Pipeline 'traces'| P1["`#quot;memory_limiter#quot; Processor`"]
+      FO -->|Pipeline 'traces/2'| P2["`#quot;transform#quot; Processor`"]
+      P1 ~~~ M1[...]
+      P2 ~~~ M2[...]
+      ```
 
-> The configuration uses composite key names in the form of `type[/name]`.
 
-When the Collector loads this config, the result looks like this diagram (part
-of processors and exporters are omitted for brevity):
-
-```mermaid
-flowchart LR
-  R1("`#quot;opentelemetry-collector#quot; Receiver`") --> FO((fan-out))
-  FO -->|Pipeline 'traces'| P1["`#quot;memory_limiter#quot; Processor`"]
-  FO -->|Pipeline 'traces/2'| P2["`#quot;transform#quot; Processor`"]
-  P1 ~~~ M1[...]
-  P2 ~~~ M2[...]
-```
-
-{{% alert title="Important" color="warning" %}}
-
-When the same receiver is referenced in more than one pipeline, the Collector
-creates only one receiver instance at runtime that sends the data to a fan-out
-consumer. The fan-out consumer in turn sends the data to the first processor of
-each pipeline. The data propagation from receiver to the fan-out consumer and
-then to processors is completed using a synchronous function call. This means
-that if one processor blocks the call, the other pipelines attached to this
-receiver are blocked from receiving the same data, and the receiver itself stops
-processing and forwarding newly received data.
-
-{{% /alert %}}
+* fan-out consumer
+  * sends the data -- , ⚠️via synchronous function call⚠️, to -- EACH pipeline's FIRST processor
+    * == pipeline1's processorX blocks pipeline2's processorS
+    * -> receiver itself stops processing & forwarding newly received data
 
 ### Exporters
 
-Exporters typically forward the data they get to a destination on a network, but
-they can also send the data elsewhere. For example, `debug` exporter writes the
-telemetry data to the logging destination.
+* Exporters
+  * For example, `debug` exporter writes the
+  telemetry data to the logging destination.
 
 The configuration allows for multiple exporters of the same type, even in the
 same pipeline. For example, you can have two `otlp` exporters defined, each one

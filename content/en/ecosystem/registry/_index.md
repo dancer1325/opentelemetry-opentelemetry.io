@@ -27,27 +27,10 @@ outputs: [html, json]
 redirects: [{ from: /ecosystem/registry*, to: '/ecosystem/registry?' }]
 ---
 
-{{% blocks/lead color="dark" %}}
-
-<!-- markdownlint-disable single-h1 -->
-
-<h1>{{% param title %}}</h1>
-
-{{% param description %}}
-
-{{% /blocks/lead %}}
-
-{{< blocks/section color="white" type="container-lg" >}}
-
-{{% alert %}}
-
-The OpenTelemetry Registry allows you to search for instrumentation libraries,
-collector components, utilities, and other useful projects in the OpenTelemetry
-ecosystem. If you are a project maintainer, you can
-[add your project to the OpenTelemetry Registry](adding/).
-
-{{% /alert %}}
-
-{{< ecosystem/registry/search-form >}}
-
-{{< /blocks/section >}}
+* OpenTelemetry Registry
+  * allows you to
+    * search for | OpenTelemetry ecosystem,
+      * instrumentation libraries,
+      * collector components,
+      * utilities,
+      * other useful projects

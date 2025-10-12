@@ -4,58 +4,40 @@ weight: 2
 cSpell:ignore: darwin dpkg journalctl kubectl otelcorecol pprof tlsv zpages
 ---
 
-You can deploy the OpenTelemetry Collector on a wide variety of operating
-systems and architectures. The following instructions show how to download and
-install the latest stable version of the Collector.
-
-If you aren't familiar with the deployment models, components, and repositories
-applicable to the OpenTelemetry Collector, first review the [Data Collection][]
-and [Deployment Methods][] page.
+* goal
+  * download & install the latest stable version of Collector
 
 ## Docker
 
-The following commands pull a Docker image and run the Collector in a container.
-Replace `{{% param vers %}}` with the version of the Collector you want to run.
+* ways
+  * DockerHub images
 
-{{< tabpane text=true >}} {{% tab DockerHub %}}
+    ```sh
+    docker pull otel/opentelemetry-collector-contrib:{{% param vers %}}
+    docker run otel/opentelemetry-collector-contrib:{{% param vers %}}
+    ```
+  * ghcr.io images
 
-```sh
-docker pull otel/opentelemetry-collector-contrib:{{% param vers %}}
-docker run otel/opentelemetry-collector-contrib:{{% param vers %}}
-```
+    ```sh
+    docker pull ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib:{{% param vers %}}
+    docker run ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib:{{% param vers %}}
+    ```
 
-{{% /tab %}} {{% tab ghcr.io %}}
+* if you want load a CUSTOM configuration file -> mount it -- as a -- volume
+  * DockerHub image
 
-```sh
-docker pull ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib:{{% param vers %}}
-docker run ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib:{{% param vers %}}
-```
+    ```sh
+    docker run -v $(pwd)/config.yaml:/etc/otelcol-contrib/config.yaml otel/opentelemetry-collector-contrib:{{% param vers %}}
+    ```
+  * ghcr.io image
 
-{{% /tab %}} {{< /tabpane >}}
-
-To load a custom configuration file from your working directory, mount that file
-as a volume:
-
-{{< tabpane text=true >}} {{% tab DockerHub %}}
-
-```sh
-docker run -v $(pwd)/config.yaml:/etc/otelcol-contrib/config.yaml otel/opentelemetry-collector-contrib:{{% param vers %}}
-```
-
-{{% /tab %}} {{% tab ghcr.io %}}
-
-```sh
-docker run -v $(pwd)/config.yaml:/etc/otelcol-contrib/config.yaml ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib:{{% param vers %}}
-```
-
-{{% /tab %}} {{< /tabpane >}}
+    ```sh
+    docker run -v $(pwd)/config.yaml:/etc/otelcol-contrib/config.yaml ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib:{{% param vers %}}
+    ```
 
 ## Docker Compose
 
-You can add OpenTelemetry Collector to your existing `docker-compose.yaml` file
-as in the following example:
-
-```yaml
+```yaml, title=docker-compose.yaml
 otel-collector:
   image: otel/opentelemetry-collector-contrib
   volumes:

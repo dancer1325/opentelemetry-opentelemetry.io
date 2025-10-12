@@ -5,9 +5,11 @@ aliases: [current_architecture]
 body_class: otel-mermaid-max-width
 ---
 
-**OpenTelemetry Demo** is composed of microservices written in different
-programming languages that talk to each other over gRPC and HTTP; and a load
-generator which uses [Locust](https://locust.io/) to fake user traffic.
+* **OpenTelemetry Demo**
+  * == microservices /
+    * written | DIFFERENT programming languages
+    * talk to each other -- over -- gRPC & HTTP
+    * fake user traffic -- via -- [Locust](https://locust.io/)
 
 ```mermaid
 graph TD
@@ -120,15 +122,10 @@ classDef rust fill:#dea584,color:black;
 classDef typescript fill:#e98516,color:black;
 ```
 
-Follow these links for the current state of
-[log](/docs/demo/telemetry-features/log-coverage/),
-[metric](/docs/demo/telemetry-features/metric-coverage/) and
-[trace](/docs/demo/telemetry-features/trace-coverage/) instrumentation of the
-demo applications.
+* [OTel collector configuration](https://github.com/open-telemetry/opentelemetry-demo/blob/main/src/otel-collector/otelcol-config.yml),
 
-The collector is configured in
-[otelcol-config.yml](https://github.com/open-telemetry/opentelemetry-demo/blob/main/src/otel-collector/otelcol-config.yml),
-alternative exporters can be configured here.
+
+* ALTERNATIVE exporters
 
 ```mermaid
 graph TB
@@ -220,4 +217,4 @@ subgraph tdf[Telemetry Data Flow]
 end
 ```
 
-Find the **Protocol Buffer Definitions** in the `/pb/` directory.
+* [Protocol Buffer Definitions](/opentelemetry-demo/pb)

@@ -9,7 +9,7 @@ cSpell:ignore: webshop
 
 * Observability
   * lets you
-    * understand a system -- from the -- outside
+    * understand a system -- from -- its outputs (telemetry data)
     * troubleshoot & handle novel problems
 
 * requirements
