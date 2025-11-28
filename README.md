@@ -31,12 +31,10 @@ before opening an issue.
 
 ## Meetings
 
-We, the OTel Communications SIG, meet every two weeks on Monday at 10:00 PT.
-Check out the [OpenTelemetry community calendar][] for the Zoom link and any
-updates to this schedule.
-
-Meeting notes are available as a public [Google doc][]. If you have trouble
-accessing the doc, get in touch in the `#otel-comms` channel on [Slack][].
+* lead by OTel Communications SIG
+* [OpenTelemetry community calendar][]
+* [Meeting notes][]
+  * ALSO AVAILABLE | [Slack][]'s `#otel-comms` channel
 
 ## Roles
 
@@ -108,7 +106,7 @@ already contributed][contributors]!
 [registry]: https://opentelemetry.io/ecosystem/registry/
 [opentelemetry community calendar]:
   https://calendar.google.com/calendar/embed?src=google.com_b79e3e90j7bbsa2n2p5an5lf60%40group.calendar.google.com
-[google doc]:
+[Meeting notes]:
   https://docs.google.com/document/d/1wW0jLldwXN8Nptq2xmgETGbGn9eWP8fitvD5njM-xZY/edit?usp=sharing
 [slack]: https://slack.cncf.io/
 [hugo]: https://gohugo.io
