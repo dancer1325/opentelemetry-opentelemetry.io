@@ -10,37 +10,32 @@ redirects:
   - { from: 'net/*', to: 'dotnet/:splat' }
 ---
 
-OpenTelemetry code [instrumentation][] is supported for the languages listed in
-the [Statuses and Releases](#status-and-releases) table below. Unofficial
-implementations for [other languages](/docs/languages/other) are available as
-well. You can find them in the [registry](/ecosystem/registry/).
-
-For Go, .NET, PHP, Python, Java and JavaScript you can use
-[zero-code solutions](/docs/zero-code) to add instrumentation to your
+* OpenTelemetry 
+  * [code instrumentation](../concepts/instrumentation)
+    * supported languages -- [registry](../../ecosystem/registry/) --
+      * [OFFICIAL ones](#status-and-releases)
+      * [Unofficial implementations](other)
+  * [zero-code solutions](../zero-code) 
+    * ALLOWED |
+      * Go,
+      * .NET,
+      * PHP,
+      * Python,
+      * Java
+      * JavaScript
+ to add instrumentation to your
 application without code changes.
 
 If you are using Kubernetes, you can use the [OpenTelemetry Operator for
 Kubernetes][otel-op] to [inject these zero-code solutions][zero-code] into your
 application.
 
-## Status and Releases
+## OpenTelemetry's major functional components' status & releases
 
-The current status of the major functional components for OpenTelemetry is as
-follows:
+* [status definitions](../specs/status.md)
+* [semantic conventions](../concepts/semantic-conventions.md)
 
-{{% alert title="Important" color="warning" %}}
-
-Regardless of an API/SDK's status, if your instrumentation relies on [semantic
-conventions][] that are marked as [Experimental] in the [semantic conventions
-specification][], your data flow might be subject to **breaking changes**.
-
-[semantic conventions]: /docs/concepts/semantic-conventions/
-[Experimental]: /docs/specs/otel/document-status/
-[semantic conventions specification]: /docs/specs/semconv/
-
-{{% /alert %}}
-
-{{% telemetry-support-table " " %}}
+* [telemetry-support-table](../../../../layouts/_shortcodes/telemetry-support-table.md)
 
 ## API references
 

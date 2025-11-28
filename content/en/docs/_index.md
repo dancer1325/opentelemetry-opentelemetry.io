@@ -27,4 +27,4 @@ aliases: [/docs/workshop/*]
     * code-based
     * zero-code
   * architecture
-    ![OpenTelemetry Reference Architecture](/opentelemetry-opentelemetry.io/static/img/otel-diagram.svg)
+    ![OpenTelemetry Reference Architecture](../../../static/img/otel-diagram.svg)
