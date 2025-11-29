@@ -20,64 +20,74 @@ weight: 20
 
 ## Specification
 
-Describes the cross-language requirements and expectations for all
-implementations. Beyond a definition of terms, the specification defines the
-following:
-
-- **API:** Defines data types and operations for generating and correlating
-  tracing, metrics, and logging data.
-- **SDK:** Defines requirements for a language-specific implementation of the
-  API. Configuration, data processing, and exporting concepts are also defined
-  here.
-- **Data:** Defines the OpenTelemetry Protocol (OTLP) and vendor-agnostic
-  semantic conventions that a telemetry backend can provide support for.
-
-For more information, see the [specifications](/docs/specs/).
+* == [requirements & expectations](../specs/)
+  * cross-language
+  * / ALL implementations
+  * == define
+    - **API**
+      - == data types + operations /
+        - generate telemetry data
+        - correlate telemetry data
+    - **SDK**
+      - API's language-specific implementation
+        - requirements
+        - configuration,
+        - data processing,
+        - exporting concepts
+    - **Data**
+      - telemetry backend
+        - can provide support -- for --
+          - OpenTelemetry Protocol (OTLP)
+          - vendor-agnostic semantic conventions
 
 ## Collector
 
-* [Collector](/docs/collector/)
+* [Collector](../collector/)
 
 ## Language-specific API & SDK implementations
 
-OpenTelemetry also has language SDKs that let you use the OpenTelemetry API to
-generate telemetry data with your language of choice and export that data to a
-preferred backend. These SDKs also let you incorporate instrumentation libraries
-for common libraries and frameworks that you can use to connect to manual
-instrumentation in your application.
+* OpenTelemetry's language SDKs
+  * allow you
+    * , -- via OpenTelemetry API, --
+      * generate telemetry data
+      * export the telemetry data -- to a -- preferred backend
+    * | your applications
+      * add instrumentation functionality
 
-* see [Instrumenting](/docs/concepts/instrumentation/)
+* [Instrumentation](instrumentation/)
 
 ### Instrumentation libraries
 
-OpenTelemetry supports a broad number of components that generate relevant
-telemetry data from popular libraries and frameworks for supported languages.
-For example, inbound and outbound HTTP requests from an HTTP library generate
-data about those requests.
+* == OpenTelemetry's components /
+  * generate
+    * relevant telemetry data
+  * 's goal
+    * 💡is included | ALL popular libraries💡
+      * == NOT require separate dependencies
+      * _Example:_ express includes it
+* uses
+  * popular libraries & frameworks
 
-An aspirational goal of OpenTelemetry is that all popular libraries are built to
-be observable by default, so that separate dependencies are not required.
-
-For more information, see
-[Instrumenting libraries](/docs/concepts/instrumentation/libraries/).
+* [MORE](instrumentation/libraries)
 
 ### Exporters
 
-{{% docs/languages/exporters/intro %}}
+* [here](../_includes/exporters/intro.md)
 
 ### Zero-code instrumentation
 
-If applicable, a language specific implementation of OpenTelemetry provides a
-way to instrument your application without touching your source code. While the
-underlying mechanism depends on the language, zero-code instrumentation adds the
-OpenTelemetry API and SDK capabilities to your application. Additionally, it
-might add a set of instrumentation libraries and exporter dependencies.
+* ❌NO require touch your source code ❌
+* OpenTelemetry's language-specific
+* provides | your application,
+  * OpenTelemetry
+    * API
+    * SDK
 
-For more information, see
-[Zero-code instrumentation](/docs/concepts/instrumentation/zero-code/).
+* [MORE](instrumentation/zero-code/)
 
 ### Resource detectors
 
+* TODO:
 A [resource](/docs/concepts/resources/) represents the entity producing
 telemetry as resource attributes. For example, a process that produces telemetry
 that is running in a container on Kubernetes has a Pod name, a namespace, and

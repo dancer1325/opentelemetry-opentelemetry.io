@@ -594,94 +594,58 @@ func NewFactory() receiver.Factory {
 
 ## Implementing the receiver component
 
-All the receiver APIs are currently declared in the
-[receiver/receiver.go](<https://github.com/open-telemetry/opentelemetry-collector/blob/v{{% param vers %}}/receiver/receiver.go>)
-file within the Collector's project, open the file and take a minute to browse
-through all the interfaces.
+* receiver APIs
+  * [declaration](https://github.com/open-telemetry/opentelemetry-collector/blob/main/receiver/receiver.go)
+    * 's ALL interfaces
+      * 👀's methods == `component.Component`'s methods💡
+        * if you want to create a `receiver.Traces` -> implement the `component.Component`'s methods
 
-Notice that `receiver.Traces` (and its siblings `receiver.Metrics` and
-`receiver.Logs`) at this point in time, doesn't describe any specific methods
-other than the ones it "inherits" from `component.Component`.
+          ```go
+          Start(ctx context.Context, host Host) error
+          Shutdown(ctx context.Context) error
+          ```
 
-It might feel weird, but remember, the Collector's API was meant to be
-extensible, and the components and their signals might evolve in different ways,
-so the role of those interfaces exist to help support that.
+      * Reason of their existence: 🧠enable Collector's API's extension🧠
+      * _Examples:_ `receiver.Traces`, `receiver.Metrics` and `receiver.Logs`
 
-So, to create a `receiver.Traces`, you just need to implement the following
-methods described by `component.Component` interface:
+* Collector's API design
+  * be extensible
+  * 's components & their signals
+    * might evolve -- via -- DIFFERENT ways
 
-```go
-Start(ctx context.Context, host Host) error
-Shutdown(ctx context.Context) error
-```
+* [`component.Component`'s methods](https://github.com/open-telemetry/opentelemetry-collector/blob/main/component/component.go)
+  * uses
+    * Collector can communicate -- , as event handler, with -- with its components
 
-Both methods actually act as event handlers used by the Collector to communicate
-with its components as part of their lifecycle.
+* steps to implement the receiver component
+  * `mkdir -p tailtracer && touch tailtracer/trace-receiver.go`
+  * add
 
-The `Start()` represents a signal of the Collector telling the component to
-start its processing. As part of the event, the Collector will pass the
-following information:
+    ```go
+    package tailtracer
 
-- `context.Context`: Most of the time, a receiver will be processing a
-  long-running operation, so the recommendation is to ignore this context and
-  actually create a new one from context.Background().
-- `Host`: The host is meant to enable the receiver to communicate with the
-  Collector's host once it's up and running.
+    import (
+        "context"
+        "go.opentelemetry.io/collector/component"
+    )
 
-The `Shutdown()` represents a signal of the Collector telling the component that
-the service is getting shutdown and as such the component should stop its
-processing and make all the necessary cleanup work required:
+    # implement Start() & Shutdown() / complaint with `receiver.Traces`
+    type tailtracerReceiver struct{
 
-- `context.Context`: the context passed by the Collector as part of the shutdown
-  operation.
+    }
 
-You will start the implementation by creating a new file called
-`trace-receiver.go` within `tailtracer` folder:
+    func (tailtracerRcvr *tailtracerReceiver) Start(ctx context.Context, host component.Host) error {
+    	return nil
+    }
 
-```sh
-touch tailtracer/trace-receiver.go
-```
+    func (tailtracerRcvr *tailtracerReceiver) Shutdown(ctx context.Context) error {
+        return nil
+    }
+    ```
 
-And then add the declaration to a type called `tailtracerReceiver` as follow:
-
-```go
-type tailtracerReceiver struct{
-
-}
-```
-
-Now that you have the `tailtracerReceiver` type, you can implement the `Start()`
-and `Shutdown()` methods so the receiver type can be compliant with the
-`receiver.Traces` interface.
-
-> tailtracer/trace-receiver.go
-
-```go
-package tailtracer
-
-import (
-	"context"
-	"go.opentelemetry.io/collector/component"
-)
-
-type tailtracerReceiver struct {
-}
-
-func (tailtracerRcvr *tailtracerReceiver) Start(ctx context.Context, host component.Host) error {
-	return nil
-}
-
-func (tailtracerRcvr *tailtracerReceiver) Shutdown(ctx context.Context) error {
-	return nil
-}
-```
 
 {{% alert title="Check your work" %}}
-
-- Importing the `context` package which is where the `Context` type and
-  functions are declared.
-- Importing the `go.opentelemetry.io/collector/component` package which is where
-  the `Host` type is declared.
+* TODO:
 - Added a bootstrap implementation of the
   `Start(ctx context.Context, host component.Host)` method to comply with the
   `receiver.Traces` interface.
@@ -689,10 +653,6 @@ func (tailtracerRcvr *tailtracerReceiver) Shutdown(ctx context.Context) error {
   to comply with the `receiver.Traces` interface.
 
 {{% /alert %}}
-
-The `Start()` method is passing 2 references (`context.Context` and
-`component.Host`) that your receiver might need to keep so they can be used as
-part of its processing operations.
 
 The `context.Context` reference should be used for creating a new context to
 support you receiver processing operations, and in that case you will need to

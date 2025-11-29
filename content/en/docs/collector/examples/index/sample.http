@@ -1,0 +1,19 @@
+### traces
+POST http://localhost:4318/v1/traces
+Content-Type: application/json
+
+< traces.json
+
+###
+
+POST http://localhost:4318/v1/metrics
+Content-Type: application/json
+
+< metrics.json
+
+###
+
+POST http://localhost:4318/v1/logs
+Content-Type: application/json
+
+< logs.json

@@ -16,9 +16,11 @@ weight: 270
   * provides
     * 💡implementation, about how to receive, process and export telemetry data💡
       * vendor-agnostic
-      * avoids run, operate, and maintain MULTIPLE agents/collectors
-      * valid | scale environments
-      * supports open source observability data formats (Jaeger, Prometheus, Fluent Bit, etc.)
+  * allows
+    * avoids run, operate, and maintain MULTIPLE agents OR collectors
+    * being used | scaled environments (horizontal OR vertical)
+  * supports
+    * open source observability data formats (Jaeger, Prometheus, Fluent Bit, etc.)
   * goal
     - _Usability_
       - default configuration,

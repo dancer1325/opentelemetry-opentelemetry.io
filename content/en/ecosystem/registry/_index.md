@@ -29,8 +29,9 @@ redirects: [{ from: /ecosystem/registry*, to: '/ecosystem/registry?' }]
 
 * OpenTelemetry Registry
   * allows you to
-    * search for | OpenTelemetry ecosystem,
+    * 👀search for | OpenTelemetry ecosystem,👀
       * instrumentation libraries,
       * collector components,
       * utilities,
       * other useful projects
+  * [web site](https://opentelemetry.io/ecosystem/registry/)
