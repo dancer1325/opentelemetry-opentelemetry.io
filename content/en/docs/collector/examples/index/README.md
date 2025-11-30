@@ -24,14 +24,15 @@
 * `docker compose -f docker-compose-vendor-agnostic.yml up -d`
 # allows
 ## avoids run, operate, and maintain MULTIPLE agents/collectors
-* TODO:
+* [docker-compose-vendor-agnostic.yml](docker-compose-vendor-agnostic.yml)
+  * ONLY tools
+  * ❌NOT agents NOR exporters❌
 ## being used | scaled environments (horizontal OR vertical)
 ### horizontal
 * `docker compose -f docker-compose-horizontal-scaling.yml up -d`
 ### vertical
-* TODO:
-## valid | scale environments
-* TODO:
+* [otel-collector-vertical-scaling.yaml](otel-collector-vertical-scaling.yaml) & [docker-compose-vertical-scaling.yml](docker-compose-vertical-scaling.yml)
+* `docker compose -f docker-compose-vertical-scaling.yml up -d`
 # supports open source observability data formats (Jaeger, Prometheus, Fluent Bit, etc.)
 * TODO:
 

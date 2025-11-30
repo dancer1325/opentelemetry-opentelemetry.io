@@ -5,8 +5,10 @@ weight: 25
 cSpell:ignore: confmap pprof tracez zpages
 ---
 
-On this page, you can learn how to troubleshoot the health and performance of
-the OpenTelemetry Collector.
+* goal
+  * how to troubleshoot OpenTelemetry Collector's
+    * health
+    * performance
 
 ## Troubleshooting tools
 

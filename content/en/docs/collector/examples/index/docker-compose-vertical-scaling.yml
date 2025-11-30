@@ -1,0 +1,32 @@
+services:
+  # low traffic container
+  otel-collector-small:
+    image: otel/opentelemetry-collector-contrib
+    volumes:
+      - ./otel-collector-vertical-scaling.yaml:/etc/otelcol-contrib/config.yaml
+    ports:
+      - 4318:4318
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+
+  # high traffic container
+  otel-collector-large:
+    image: otel/opentelemetry-collector-contrib
+    volumes:
+      - ./otel-collector-vertical-scaling.yaml:/etc/otelcol-contrib/config.yaml
+    ports:
+      - 4319:4318
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'
+          memory: 4096M
+        reservations:
+          cpus: '2.0'
+          memory: 2048M

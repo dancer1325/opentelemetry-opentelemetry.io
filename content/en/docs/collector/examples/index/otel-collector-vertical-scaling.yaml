@@ -1,0 +1,40 @@
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: 0.0.0.0:4318
+        max_recv_msg_size_mib: 100  # BIGGER messages
+
+processors:
+  # Controla uso de memoria
+  memory_limiter:
+    check_interval: 1s
+    limit_mib: 4096
+    spike_limit_mib: 1024
+
+  # Procesa más datos por lote
+  batch:
+    timeout: 5s
+    send_batch_size: 10000
+    send_batch_max_size: 20000
+
+exporters:
+  debug:
+    verbosity: detailed
+  otlp:
+    endpoint: backend:4317
+    sending_queue:
+      enabled: true
+      num_consumers: 10        # Más workers paralelos
+      queue_size: 5000         # Cola más grande
+
+service:
+  telemetry:
+    metrics:
+      level: detailed
+
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [memory_limiter, batch]
+      exporters: [debug, otlp]
