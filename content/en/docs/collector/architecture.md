@@ -125,23 +125,23 @@ cSpell:ignore: fanoutconsumer probabilisticsampler zpages
 ### Exporters
 
 * Exporters
-  * For example, `debug` exporter writes the
-  telemetry data to the logging destination.
+  * configuration
+    * allows for
+      * MULTIPLE exporters /
+        * SAME type
+        * | SAME pipeline
+    * _Examples:_
 
-The configuration allows for multiple exporters of the same type, even in the
-same pipeline. For example, you can have two `otlp` exporters defined, each one
-sending to a different OTLP endpoint:
+      ```yaml
+      exporters:
+        otlp/1:
+          endpoint: example.com:4317
+        otlp/2:
+          endpoint: localhost:14317
+      ```
 
-```yaml
-exporters:
-  otlp/1:
-    endpoint: example.com:4317
-  otlp/2:
-    endpoint: localhost:14317
-```
-
-An exporter usually gets the data from one pipeline. However, you can configure
-multiple pipelines to send data to the same exporter:
+An exporter usually gets the data from one pipeline
+However, you can configure multiple pipelines to send data to the same exporter:
 
 ```yaml
 exporters:
@@ -163,7 +163,8 @@ service:
 ```
 
 In the above example, `otlp` exporter gets data from pipeline `traces` and from
-pipeline `traces/2`. When the Collector loads this config, the result looks like
+pipeline `traces/2`
+When the Collector loads this config, the result looks like
 this diagram (part of processors and receivers are omitted for brevity):
 
 ```mermaid
