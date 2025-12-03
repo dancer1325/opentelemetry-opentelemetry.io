@@ -1,0 +1,24 @@
+services:
+  zipkin:
+    image: openzipkin/zipkin:latest
+    container_name: zipkin
+    ports:
+      - "9411:9411"   # Zipkin UI and API
+    environment:
+      - STORAGE_TYPE=mem
+
+  otel-collector:
+    image: otel/opentelemetry-collector:latest
+    container_name: otel-collector-architecture
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    volumes:
+      - ./otel-collector-processor1.yaml:/etc/otel-collector-config.yaml
+    ports:
+      - "4317:4317"   # OTLP gRPC receiver
+      - "4318:4318"   # OTLP HTTP receiver
+      - "9412:9411"   # Zipkin receiver (mapped to 9412 to avoid conflict)
+      - "8888:8888"   # Prometheus metrics
+      - "13133:13133" # Health check
+      - "55679:55679" # zpages extension
+    depends_on:
+      - zipkin

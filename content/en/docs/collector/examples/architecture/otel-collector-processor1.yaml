@@ -1,0 +1,47 @@
+receivers:
+  zipkin:
+    endpoint: 0.0.0.0:9411
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+# SAME configuration / EACH processor
+processors:
+  batch:
+    send_batch_size: 10000
+    timeout: 10s
+
+exporters:
+  otlp:
+    endpoint: zipkin:9411
+    tls:
+      insecure: true
+  debug:
+    verbosity: detailed
+
+extensions:
+  zpages:
+    endpoint: 0.0.0.0:55679
+
+service:
+  extensions: [zpages]
+  pipelines:
+    # pipeline1
+    traces: # a pipeline of "traces" type
+      receivers: [zipkin]
+      processors: [batch]
+      exporters: [debug]
+    # pipeline2
+    traces/2: # another pipeline of "traces" type
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [debug]
+
+  telemetry:
+    logs:
+      level: debug
+    metrics:
+      level: detailed

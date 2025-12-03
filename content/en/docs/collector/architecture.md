@@ -28,9 +28,18 @@ cSpell:ignore: fanoutconsumer probabilisticsampler zpages
     * can be used | MULTIPLE pipelines
   * [processorS](#processors)
     * OPTIONAL
-    * get ALL receiverS' data & process it
-      * ALL processorS are sequential (!= parallel)
-    * LAST processor send data -- , via `fanoutconsumer`, to -- MULTIPLE exporters
+    * FIRST processor
+      * 's input
+        * ALL receiverS' data
+    * ⚠️ALL processorS are sequential (!= parallel)⚠️
+    * NON-FIRST NOR LAST processor
+      * 's input
+        * PREVIOUS processor's output data
+      * 's output
+        * sent -- to -- NEXT processor
+    * LAST processor
+      * 's output
+        * sent -- , via `fanoutconsumer`, to -- MULTIPLE exporters
   * [exporterS](#exporters)
     * EACH one get the 👀LAST processor' copy of data👀
     * send it -- outside the -- Collector
@@ -140,6 +149,7 @@ cSpell:ignore: fanoutconsumer probabilisticsampler zpages
           endpoint: localhost:14317
       ```
 
+* TODO:
 An exporter usually gets the data from one pipeline
 However, you can configure multiple pipelines to send data to the same exporter:
 
@@ -177,64 +187,21 @@ flowchart LR
 
 ### Processors
 
-A pipeline can contain sequentially connected processors. The first processor
-gets the data from one or more receivers that are configured for the pipeline,
-and the last processor sends the data to one or more exporters that are
-configured for the pipeline. All processors between the first and last receive
-the data from only one preceding processor and send data to only one succeeding
-processor.
+* Processors
+  * BEFORE forwarding data,
+    * can transform data
+      * _Examples:_ adding or removing attributes | spans
+    * can drop data (== NOT to forward it)
+      * _Example:_ `probabilisticsampler` processor
+    * can generate new data
+  * uses
+    * 👀| MULTIPLE pipelines👀
+      * SAME configuration / EACH processor
+      * 1 instance of the processor / EACH pipeline
+        * -> OWN state
+        * processors are NEVER shared BETWEEN pipelines
 
-Processors can transform the data before forwarding it, such as adding or
-removing attributes from spans. They can also drop the data by deciding not to
-forward it (for example, the `probabilisticsampler` processor). Or they can
-generate new data.
 
-The same name of the processor can be referenced in the `processors` key of
-multiple pipelines. In this case, the same configuration is used for each of
-these processors, but each pipeline always gets its own instance of the
-processor. Each of these processors has its own state, and the processors are
-never shared between pipelines. For example, if `batch` processor is used in
-several pipelines, each pipeline has its own batch processor, but each batch
-processor is configured exactly the same way if they reference the same key in
-the configuration. See the following configuration:
-
-```yaml
-processors:
-  batch:
-    send_batch_size: 10000
-    timeout: 10s
-
-service:
-  pipelines:
-    traces: # a pipeline of “traces” type
-      receivers: [zipkin]
-      processors: [batch]
-      exporters: [otlp]
-    traces/2: # another pipeline of “traces” type
-      receivers: [otlp]
-      processors: [batch]
-      exporters: [otlp]
-```
-
-When the Collector loads this config, the result looks like this diagram:
-
-```mermaid
----
-title: Pipeline "traces"
----
-flowchart LR
-  R1("`zipkin Receiver`") --> P1["`#quot;batch#quot; Processor`"]
-  P1 --> E1[["`#quot;otlp#quot; Exporter`"]]
-```
-
-```mermaid
----
-title: Pipeline "traces/2"
----
-flowchart LR
-  R1("`otlp Receiver`") --> P1["`#quot;batch#quot; Processor`"]
-  P1 --> E1[["`#quot;otlp#quot; Exporter`"]]
-```
 
 Note that each `batch` processor is an independent instance, although they are
 configured the same way with a `send_batch_size` of `10000`.
