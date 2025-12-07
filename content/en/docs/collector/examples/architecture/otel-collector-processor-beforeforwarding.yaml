@@ -1,0 +1,51 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+
+processors:
+  # Batch processor
+  batch:
+    send_batch_size: 10
+    timeout: 5s
+  
+  # Attributes processor - transforms data by adding/modifying attributes
+  attributes:
+    actions:
+      - key: environment
+        value: production
+        action: insert
+      - key: team
+        value: platform-team
+        action: insert
+      - key: service.name
+        action: update
+        from_attribute: original.service.name
+        
+  # Resource processor - transforms resource attributes
+  resource:
+    attributes:
+      - key: deployment.environment
+        value: prod-cluster-1
+        action: insert
+
+exporters:
+  debug:
+    verbosity: detailed
+
+extensions:
+  zpages:
+    endpoint: 0.0.0.0:55679
+
+service:
+  extensions: [zpages]
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [attributes, resource, batch]  # Transform BEFORE batching
+      exporters: [debug]
+
+  telemetry:
+    logs:
+      level: debug
