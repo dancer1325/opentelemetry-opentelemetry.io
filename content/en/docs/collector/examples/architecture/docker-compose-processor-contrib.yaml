@@ -8,12 +8,12 @@ services:
       - STORAGE_TYPE=mem
 
   otel-collector:
-    image: otel/opentelemetry-collector:latest
-    container_name: otel-collector-architecture
+    image: otel/opentelemetry-collector-contrib:latest
+    container_name: otel-collector-processor-contrib
     command: ["--config=/etc/otel-collector-config.yaml"]
     volumes:
-      # 2. uses | MULTIPLE pipelines
-      #- ./otel-collector-processor1.yaml:/etc/otel-collector-config.yaml
+      # 1. BEFORE forwarding data,
+      - ./otel-collector-processor-beforeforwarding.yaml.yaml:/etc/otel-collector-config.yaml
     ports:
       - "4317:4317"   # OTLP gRPC receiver
       - "4318:4318"   # OTLP HTTP receiver

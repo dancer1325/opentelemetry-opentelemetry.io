@@ -190,7 +190,7 @@ flowchart LR
 * Processors
   * BEFORE forwarding data,
     * can transform data
-      * _Examples:_ adding or removing attributes | spans
+      * _Examples:_ adding or removing attributes | spans -- [attributeProcessor](https://github.com/dancer1325/opentelemetry-collector-contrib/tree/main/processor/attributesprocessor) --
     * can drop data (== NOT to forward it)
       * _Example:_ `probabilisticsampler` processor
     * can generate new data
